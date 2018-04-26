@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 
+import com.smd.studio.thestarsgrouptask.di.component.DaggerAppComponent;
+
 import javax.inject.Inject;
 
 import dagger.android.DispatchingAndroidInjector;
@@ -29,6 +31,6 @@ public class App extends Application implements HasActivityInjector {
     }
 
     private void initDagger() {
-        //DaggerAppComponent.builder().application(this).build().inject(this);
+        DaggerAppComponent.builder().application(this).build().inject(this);
     }
 }

@@ -1,7 +1,10 @@
 package com.smd.studio.thestarsgrouptask.repositories;
 
 import android.arch.lifecycle.LiveData;
+import android.util.Log;
+import android.widget.Toast;
 
+import com.smd.studio.thestarsgrouptask.App;
 import com.smd.studio.thestarsgrouptask.database.dao.TrainDao;
 import com.smd.studio.thestarsgrouptask.database.entity.TrainEntity;
 import com.smd.studio.thestarsgrouptask.network.TrainWebService;
@@ -14,6 +17,10 @@ import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 import javax.inject.Singleton;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 @Singleton
 public class TrainRepository {
@@ -35,7 +42,6 @@ public class TrainRepository {
     }
 
     private void refreshTrain(String stationName) {
-        /*
         executor.execute(() -> {
             List<TrainEntity> trainEntityList = trainDao.loadTrainsList(stationName);
             for (TrainEntity train : trainEntityList) {
@@ -67,7 +73,6 @@ public class TrainRepository {
                 }
             }
         });
-        */
     }
 
     private Date getMaxRefreshTime(Date currentDate) {
