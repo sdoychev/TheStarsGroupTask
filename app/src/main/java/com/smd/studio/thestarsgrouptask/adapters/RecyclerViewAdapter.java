@@ -53,9 +53,9 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         TrainViewHolder(View view) {
             super(view);
-            itemTextView = (TextView) view.findViewById(R.id.itemTextView);
-            nameTextView = (TextView) view.findViewById(R.id.nameTextView);
-            dateTextView = (TextView) view.findViewById(R.id.dateTextView);
+            itemTextView = (TextView) view.findViewById(R.id.trainNameView);
+            nameTextView = (TextView) view.findViewById(R.id.trainDestView);
+            dateTextView = (TextView) view.findViewById(R.id.trainOrigView);
         }
     }
 }

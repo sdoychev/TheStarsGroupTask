@@ -3,12 +3,12 @@
 
     <item
         android:id="@+id/navigation_arklow"
-        android:icon="@android:drawable/arrow_down_float"
+        android:icon="@drawable/ic_train"
         android:title="@string/title_arklow" />
 
     <item
         android:id="@+id/navigation_shankill"
-        android:icon="@android:drawable/arrow_down_float"
+        android:icon="@drawable/ic_train"
         android:title="@string/title_shankill" />
 
 </menu>

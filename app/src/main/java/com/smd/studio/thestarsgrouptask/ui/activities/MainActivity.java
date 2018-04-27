@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
 
     private TextView mTextMessage;
     private Fragment currentFragment;
-    private FragmentTransaction fragmentTransaction;
     private Bundle bundle = new Bundle();
 
     @Inject
@@ -38,25 +37,13 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
             switch (item.getItemId()) {
                 case R.id.navigation_arklow:
                     mTextMessage.setText(R.string.title_arklow);
-
                     currentFragment = new ArklowTrainsFragment();
-                    bundle.putString(Constants.UID_KEY, Constants.ARKLOW_STATION_NAME);
-                    currentFragment.setArguments(bundle);
-
-                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.container, currentFragment);
-                    fragmentTransaction.commit();
+                    loadTrainFragment(currentFragment, Constants.ARKLOW_STATION_NAME);
                     return true;
                 case R.id.navigation_shankill:
                     mTextMessage.setText(R.string.title_shankill);
-
                     currentFragment = new ShankillTrainsFragment();
-                    bundle.putString(Constants.UID_KEY, Constants.SHANKILL_STATION_NAME);
-                    currentFragment.setArguments(bundle);
-
-                    fragmentTransaction = getSupportFragmentManager().beginTransaction();
-                    fragmentTransaction.replace(R.id.container, currentFragment);
-                    fragmentTransaction.commit();
+                    loadTrainFragment(currentFragment, Constants.SHANKILL_STATION_NAME);
                     return true;
             }
             return false;
@@ -73,6 +60,17 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         configureDagger();
+
+        currentFragment = new ArklowTrainsFragment();
+        loadTrainFragment(currentFragment, Constants.ARKLOW_STATION_NAME);
+    }
+
+    private void loadTrainFragment(Fragment currentFragment, String fragmentIdentifier) {
+        bundle.putString(Constants.UID_KEY, fragmentIdentifier);
+        currentFragment.setArguments(bundle);
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.container, currentFragment);
+        fragmentTransaction.commit();
     }
 
     @Override

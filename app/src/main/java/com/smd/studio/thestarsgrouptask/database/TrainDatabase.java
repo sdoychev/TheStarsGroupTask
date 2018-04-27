@@ -18,7 +18,7 @@ public abstract class TrainDatabase extends RoomDatabase {
 
     public static TrainDatabase getDatabase(Context context) {
         if (INSTANCE == null) {
-            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), TrainDatabase.class, "borrow_db").build();
+            INSTANCE = Room.databaseBuilder(context.getApplicationContext(), TrainDatabase.class, "train_db").build();
         }
         return INSTANCE;
     }

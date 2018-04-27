@@ -9,18 +9,18 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/itemTextView"
+            android:id="@+id/trainNameView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="25sp" />
 
         <TextView
-            android:id="@+id/nameTextView"
+            android:id="@+id/trainDestView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
         <TextView
-            android:id="@+id/dateTextView"
+            android:id="@+id/trainOrigView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
