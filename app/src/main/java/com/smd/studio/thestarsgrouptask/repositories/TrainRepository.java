@@ -44,33 +44,38 @@ public class TrainRepository {
     private void refreshTrain(String stationName) {
         executor.execute(() -> {
             List<TrainEntity> trainEntityList = trainDao.loadTrainsList(stationName);
-            for (TrainEntity train : trainEntityList) {
-                // Check if train was fetched recently
-                boolean trainExpired = (trainDao.trainExpired(train.getTrainCode(), getMaxRefreshTime(new Date())) != null);
-                // If train has to be updated
-                if (trainExpired) {
-                    webservice.getTrains(train.getStationCode()).enqueue(new Callback<List<TrainEntity>>() {
-                        @Override
-                        public void onResponse(Call<List<TrainEntity>> call, Response<List<TrainEntity>> response) {
-                            Log.e("TAG", "DATA REFRESHED FROM NETWORK");
-                            Toast.makeText(App.context, "Data refreshed from network !", Toast.LENGTH_LONG).show();
-                            executor.execute(() -> {
-                                List<TrainEntity> trains = response.body();
-                                if (trains != null && trains.size() > 0) {
-                                    for (TrainEntity train : trains) {
-                                        train.setLastRefresh(new Date());
-                                        trainDao.insert(train);
-                                    }
-                                }
-                            });
-                        }
-
-                        @Override
-                        public void onFailure(Call<List<TrainEntity>> call, Throwable t) {
-                            Log.e("TAG", "Error when getting data from Network");
-                        }
-                    });
+            if (trainEntityList != null && trainEntityList.size() > 0) {
+                for (TrainEntity train : trainEntityList) {
+                    // Check if train was fetched recently
+                    boolean trainExpired = (trainDao.trainExpired(train.getTrainCode(), getMaxRefreshTime(new Date())) != null);
+                    // If train has to be updated
+                    if (trainExpired) {
+                        //TODO UPDATE this train from WEB API
+                    }
                 }
+            } else {
+                webservice.getTrains(stationName).enqueue(new Callback<List<TrainEntity>>() {
+                    @Override
+                    public void onResponse(Call<List<TrainEntity>> call, Response<List<TrainEntity>> response) {
+                        Log.e("TAG", "DATA REFRESHED FROM NETWORK");
+                        Toast.makeText(App.context, "Data refreshed from network !", Toast.LENGTH_LONG).show();
+                        executor.execute(() -> {
+                            List<TrainEntity> trains = response.body();
+                            if (trains != null && trains.size() > 0) {
+                                for (TrainEntity train : trains) {
+                                    train.setLastRefresh(new Date());
+                                    trainDao.insert(train);
+                                }
+                            }
+                        });
+                    }
+
+
+                    @Override
+                    public void onFailure(Call<List<TrainEntity>> call, Throwable t) {
+                        Log.e("TAG", "Error when getting data from Network");
+                    }
+                });
             }
         });
     }

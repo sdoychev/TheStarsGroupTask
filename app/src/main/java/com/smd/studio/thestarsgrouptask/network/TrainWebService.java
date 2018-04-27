@@ -10,6 +10,6 @@ import retrofit2.http.Query;
 
 public interface TrainWebService {
 
-    @GET("/getStationDataByCodeXML")
+    @GET("getStationDataByCodeXML")
     Call<List<TrainEntity>> getTrains(@Query("StationCode") String stationCode);
 }

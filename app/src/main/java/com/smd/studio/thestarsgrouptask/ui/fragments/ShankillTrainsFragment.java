@@ -54,7 +54,10 @@ public class ShankillTrainsFragment extends android.support.v4.app.Fragment {
     }
 
     private void configureViewModel() {
-        String trainList = getArguments().getString(Constants.UID_KEY);
+        String trainList = null;
+        if (getArguments() != null) {
+            trainList = getArguments().getString(Constants.UID_KEY);
+        }
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(TrainListViewModel.class);
         viewModel.init(trainList);
         viewModel.getTrains().observe(this, trains -> updateUI(trains));
