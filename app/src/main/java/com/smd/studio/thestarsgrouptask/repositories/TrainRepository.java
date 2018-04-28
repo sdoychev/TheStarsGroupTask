@@ -54,7 +54,7 @@ public class TrainRepository {
         webservice.loadTrains(stationCode).enqueue(new Callback<NetworkResponse>() {
             @Override
             public void onResponse(@NonNull Call<NetworkResponse> call, @NonNull Response<NetworkResponse> response) {
-                Log.e("TAG", "Data refreshed from network");
+                Log.d(Constants.APP_TAG, "Data successfully fetched.");
                 executor.execute(() -> {
                     if (response.body() != null) {
                         trainDao.removeTrains(stationName);
@@ -65,7 +65,7 @@ public class TrainRepository {
 
             @Override
             public void onFailure(@NonNull Call<NetworkResponse> call, @NonNull Throwable t) {
-                Log.e("TAG", "Error when getting data from Network");
+                Log.e(Constants.APP_TAG, "Error while fetching the data...");
             }
         });
     }

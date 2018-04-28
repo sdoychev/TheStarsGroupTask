@@ -7,6 +7,6 @@ import dagger.android.ContributesAndroidInjector;
 
 @Module
 public abstract class ActivityModule {
-    @ContributesAndroidInjector()
+    @ContributesAndroidInjector(modules = {ArklowTrainsFragmentModule.class, ShankillTrainsFragmentModule.class})
     abstract MainActivity contributeMainActivity();
 }

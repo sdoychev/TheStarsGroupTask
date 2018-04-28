@@ -45,7 +45,7 @@ public class AppModule {
 
     @Provides
     @Singleton
-    TrainRepository provideUserRepository(TrainWebService webservice, TrainDao userDao, Executor executor) {
+    TrainRepository provideTrainRepository(TrainWebService webservice, TrainDao userDao, Executor executor) {
         return new TrainRepository(webservice, userDao, executor);
     }
 
