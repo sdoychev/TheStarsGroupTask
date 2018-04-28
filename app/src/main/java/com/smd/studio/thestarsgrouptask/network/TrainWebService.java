@@ -9,5 +9,5 @@ import retrofit2.http.Query;
 public interface TrainWebService {
 
     @GET("getStationDataByCodeXML")
-    Call<NetworkResponse> getTrains(@Query("StationCode") String stationCode);
+    Call<NetworkResponse> loadTrains(@Query("StationCode") String stationCode);
 }

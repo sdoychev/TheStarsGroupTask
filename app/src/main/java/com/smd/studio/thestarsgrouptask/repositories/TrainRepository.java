@@ -8,6 +8,7 @@ import com.smd.studio.thestarsgrouptask.database.dao.TrainDao;
 import com.smd.studio.thestarsgrouptask.database.entity.TrainEntity;
 import com.smd.studio.thestarsgrouptask.network.TrainWebService;
 import com.smd.studio.thestarsgrouptask.network.response.NetworkResponse;
+import com.smd.studio.thestarsgrouptask.util.Constants;
 
 import java.util.List;
 import java.util.Objects;
@@ -40,7 +41,17 @@ public class TrainRepository {
     }
 
     private void fetchTrainsFromRailApi(String stationName) {
-        webservice.getTrains(stationName).enqueue(new Callback<NetworkResponse>() {
+        String stationCode;
+        switch (stationName) {
+            default:
+            case Constants.ARKLOW_STATION_NAME:
+                stationCode = Constants.ARKLOW_STATION_CODE;
+                break;
+            case Constants.SHANKILL_STATION_NAME:
+                stationCode = Constants.SHANKILL_STATION_CODE;
+                break;
+        }
+        webservice.loadTrains(stationCode).enqueue(new Callback<NetworkResponse>() {
             @Override
             public void onResponse(@NonNull Call<NetworkResponse> call, @NonNull Response<NetworkResponse> response) {
                 Log.e("TAG", "Data refreshed from network");

@@ -36,25 +36,9 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
 
-    private String currentStationCode;
+    private String currentStation = Constants.ARKLOW_STATION_NAME;
+    private TrainListViewModel viewModel;
     private RecyclerViewAdapter recyclerViewAdapter;
-
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.navigation_arklow:
-                    textMessage.setText(R.string.title_arklow);
-                    currentStationCode = Constants.ARKLOW_STATION_NAME;
-                    return true;
-                case R.id.navigation_shankill:
-                    textMessage.setText(R.string.title_shankill);
-                    currentStationCode = Constants.SHANKILL_STATION_NAME;
-                    return true;
-            }
-            return false;
-        }
-    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,8 +56,25 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setAdapter(recyclerViewAdapter);
 
         //View Model
-        TrainListViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(TrainListViewModel.class);
-        viewModel.init(currentStationCode);
-        viewModel.getTrains().observe(this, trainsList -> recyclerViewAdapter.addItems(trainsList));
+        viewModel = ViewModelProviders.of(this, viewModelFactory).get(TrainListViewModel.class);
+        viewModel.init(currentStation);
+        viewModel.getTrains().observe(MainActivity.this, trainEntityList -> recyclerViewAdapter.addItems(trainEntityList));
     }
+
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
+        @Override
+        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+            switch (item.getItemId()) {
+                case R.id.navigation_arklow:
+                    currentStation = Constants.ARKLOW_STATION_NAME;
+                    textMessage.setText(currentStation);
+                    return true;
+                case R.id.navigation_shankill:
+                    currentStation = Constants.SHANKILL_STATION_NAME;
+                    textMessage.setText(currentStation);
+                    return true;
+            }
+            return false;
+        }
+    };
 }
