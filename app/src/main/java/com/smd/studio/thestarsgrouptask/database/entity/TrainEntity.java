@@ -1,6 +1,5 @@
 package com.smd.studio.thestarsgrouptask.database.entity;
 
-import android.annotation.SuppressLint;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
@@ -10,14 +9,9 @@ import com.google.gson.annotations.Expose;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-import java.text.SimpleDateFormat;
-
 @Entity(tableName = "trains")
 @Root(name = "objStationData")
 public class TrainEntity {
-
-    @SuppressLint("SimpleDateFormat")
-    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
     @PrimaryKey
     @NonNull

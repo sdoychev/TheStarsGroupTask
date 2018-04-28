@@ -14,20 +14,13 @@ import com.smd.studio.thestarsgrouptask.ui.fragments.ArklowTrainsFragment;
 import com.smd.studio.thestarsgrouptask.ui.fragments.ShankillTrainsFragment;
 import com.smd.studio.thestarsgrouptask.util.Constants;
 
-import javax.inject.Inject;
-
 import dagger.android.AndroidInjection;
-import dagger.android.DispatchingAndroidInjector;
-import dagger.android.support.HasSupportFragmentInjector;
 
-public class MainActivity extends AppCompatActivity implements HasSupportFragmentInjector {
+public class MainActivity extends AppCompatActivity {
 
     private TextView mTextMessage;
     private Fragment currentFragment;
     private Bundle bundle = new Bundle();
-
-    @Inject
-    DispatchingAndroidInjector<Fragment> dispatchingAndroidInjector;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -71,11 +64,6 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
         fragmentTransaction.replace(R.id.container, currentFragment);
         fragmentTransaction.commit();
-    }
-
-    @Override
-    public DispatchingAndroidInjector<Fragment> supportFragmentInjector() {
-        return dispatchingAndroidInjector;
     }
 
     private void configureDagger() {
