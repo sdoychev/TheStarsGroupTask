@@ -19,7 +19,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
+import retrofit2.converter.simplexml.SimpleXmlConverterFactory;
 
 @Module(includes = ViewModelModule.class)
 public class AppModule {
@@ -58,7 +58,7 @@ public class AppModule {
     @Provides
     Retrofit provideRetrofit(Gson gson) {
         return new Retrofit.Builder()
-                .addConverterFactory(GsonConverterFactory.create(gson))
+                .addConverterFactory(SimpleXmlConverterFactory.create())
                 .baseUrl(Constants.BASE_URL)
                 .build();
     }

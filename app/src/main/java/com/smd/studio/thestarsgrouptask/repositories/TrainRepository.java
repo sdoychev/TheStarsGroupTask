@@ -1,13 +1,13 @@
 package com.smd.studio.thestarsgrouptask.repositories;
 
 import android.arch.lifecycle.LiveData;
+import android.support.annotation.NonNull;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.smd.studio.thestarsgrouptask.App;
 import com.smd.studio.thestarsgrouptask.database.dao.TrainDao;
 import com.smd.studio.thestarsgrouptask.database.entity.TrainEntity;
 import com.smd.studio.thestarsgrouptask.network.TrainWebService;
+import com.smd.studio.thestarsgrouptask.network.response.NetworkResponse;
 import com.smd.studio.thestarsgrouptask.util.Constants;
 
 import java.util.Calendar;
@@ -54,10 +54,12 @@ public class TrainRepository {
                     }
                 }
             } else {
-                webservice.getTrains(stationName).enqueue(new Callback<List<TrainEntity>>() {
+                webservice.getTrains(stationName).enqueue(new Callback<NetworkResponse>() {
                     @Override
-                    public void onResponse(Call<List<TrainEntity>> call, Response<List<TrainEntity>> response) {
+                    public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
                         Log.e("TAG", "DATA REFRESHED FROM NETWORK");
+
+                        /* TODO
                         Toast.makeText(App.context, "Data refreshed from network !", Toast.LENGTH_LONG).show();
                         executor.execute(() -> {
                             List<TrainEntity> trains = response.body();
@@ -68,11 +70,11 @@ public class TrainRepository {
                                 }
                             }
                         });
+                        */
                     }
 
-
                     @Override
-                    public void onFailure(Call<List<TrainEntity>> call, Throwable t) {
+                    public void onFailure(@NonNull Call<NetworkResponse> call, @NonNull Throwable t) {
                         Log.e("TAG", "Error when getting data from Network");
                     }
                 });

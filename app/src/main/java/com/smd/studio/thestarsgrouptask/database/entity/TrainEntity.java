@@ -1,103 +1,139 @@
 package com.smd.studio.thestarsgrouptask.database.entity;
 
+import android.annotation.SuppressLint;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 
+import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
+import org.simpleframework.xml.core.Commit;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Entity(tableName = "trains")
+@Root(name = "objStationData")
 public class TrainEntity {
+
+    @SuppressLint("SimpleDateFormat")
+    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
 
     @PrimaryKey
     @NonNull
-    @SerializedName("Traincode")
     @Expose
+    @Element(name = "Traincode")
     private String trainCode;
 
-    @SerializedName("Stationfullname")
     @Expose
+    @Element(name = "Stationfullname")
     private String stationFullName;
 
-    @SerializedName("Stationcode")
     @Expose
+    @Element(name = "Stationcode")
     private String stationCode;
 
-    @SerializedName("Servertime")
     @Expose
-    private Date serverTime;
+    @Element(name = "Servertime")
+    private String serverTime;
 
-    @SerializedName("Origin")
     @Expose
+    @Element(name = "Querytime")
+    private String queryTime;
+
+    @Expose
+    @Element(name = "Traindate")
+    private String trainDate;
+
+    @Expose
+    @Element(name = "Origin")
     private String origin;
 
-    @SerializedName("Destination")
     @Expose
+    @Element(name = "Destination")
     private String destination;
 
-    @SerializedName("Origintime")
     @Expose
+    @Element(name = "Origintime")
     private String originTime;
 
-    @SerializedName("Destinationtime")
     @Expose
+    @Element(name = "Destinationtime")
     private String destinationTime;
 
-    @SerializedName("Status")
     @Expose
+    @Element(name = "Status")
     private String status;
 
-    @SerializedName("Lastlocation")
     @Expose
+    @Element(name = "Lastlocation", required = false)
     private String lastLocation;
 
-    @SerializedName("Duein")
     @Expose
+    @Element(name = "Duein")
     private int dueIn;
 
-    @SerializedName("Late")
     @Expose
+    @Element(name = "Late")
     private int late;
 
-    @SerializedName("Exparrival")
     @Expose
+    @Element(name = "Exparrival")
     private String expectedArrival;
 
-    @SerializedName("Expdepart")
     @Expose
+    @Element(name = "Expdepart")
     private String expectedDeparture;
 
-    @SerializedName("Scharrival")
     @Expose
+    @Element(name = "Scharrival")
     private String scheduledArrival;
 
-    @SerializedName("Schdepart")
     @Expose
+    @Element(name = "Schdepart")
     private String scheduledDeparture;
 
-    @SerializedName("Direction")
     @Expose
+    @Element(name = "Direction")
     private String direction;
 
-    @SerializedName("Traintype")
     @Expose
+    @Element(name = "Traintype")
     private String trainType;
 
-    @SerializedName("Locationtype")
     @Expose
+    @Element(name = "Locationtype")
     private String locationType;
 
     private Date lastRefresh;
 
-    //Constructor
-    public TrainEntity(@NonNull String trainCode, String stationFullName, String stationCode, Date serverTime, String origin, String destination, String originTime, String destinationTime, String status, String lastLocation, int dueIn, int late, String expectedArrival, String expectedDeparture, String scheduledArrival, String scheduledDeparture, String direction, String trainType, String locationType, Date lastRefresh) {
+    @Commit
+    private void parseDate() {
+        if(serverTime != null) {
+            try {
+                lastRefresh = simpleDateFormat.parse(String.valueOf(serverTime));
+            } catch (ParseException e) {
+                e.printStackTrace();
+            } finally {
+                lastRefresh = null;
+            }
+        }
+    }
+
+    //Constructors
+    public TrainEntity() {
+    }
+
+    public TrainEntity(@NonNull String trainCode, String stationFullName, String stationCode, String serverTime, String queryTime, String trainDate, String origin, String destination, String originTime, String destinationTime, String status, String lastLocation, int dueIn, int late, String expectedArrival, String expectedDeparture, String scheduledArrival, String scheduledDeparture, String direction, String trainType, String locationType, Date lastRefresh) {
         this.trainCode = trainCode;
         this.stationFullName = stationFullName;
         this.stationCode = stationCode;
         this.serverTime = serverTime;
+        this.queryTime = queryTime;
+        this.trainDate = trainDate;
         this.origin = origin;
         this.destination = destination;
         this.originTime = originTime;
@@ -130,7 +166,7 @@ public class TrainEntity {
         return stationCode;
     }
 
-    public Date getServerTime() {
+    public String getServerTime() {
         return serverTime;
     }
 
@@ -198,6 +234,14 @@ public class TrainEntity {
         return lastRefresh;
     }
 
+    public String getQueryTime() {
+        return queryTime;
+    }
+
+    public String getTrainDate() {
+        return trainDate;
+    }
+
     //Setters
     public void setTrainCode(@NonNull String trainCode) {
         this.trainCode = trainCode;
@@ -211,7 +255,7 @@ public class TrainEntity {
         this.stationCode = stationCode;
     }
 
-    public void setServerTime(Date serverTime) {
+    public void setServerTime(String serverTime) {
         this.serverTime = serverTime;
     }
 
@@ -277,5 +321,13 @@ public class TrainEntity {
 
     public void setLastRefresh(Date lastRefresh) {
         this.lastRefresh = lastRefresh;
+    }
+
+    public void setQueryTime(String queryTime) {
+        this.queryTime = queryTime;
+    }
+
+    public void setTrainDate(String trainDate) {
+        this.trainDate = trainDate;
     }
 }
