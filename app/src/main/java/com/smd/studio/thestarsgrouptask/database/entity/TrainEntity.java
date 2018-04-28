@@ -9,11 +9,8 @@ import com.google.gson.annotations.Expose;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
-import org.simpleframework.xml.core.Commit;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 
 @Entity(tableName = "trains")
 @Root(name = "objStationData")
@@ -108,26 +105,11 @@ public class TrainEntity {
     @Element(name = "Locationtype")
     private String locationType;
 
-    private Date lastRefresh;
-
-    @Commit
-    private void parseDate() {
-        if(serverTime != null) {
-            try {
-                lastRefresh = simpleDateFormat.parse(String.valueOf(serverTime));
-            } catch (ParseException e) {
-                e.printStackTrace();
-            } finally {
-                lastRefresh = null;
-            }
-        }
-    }
-
     //Constructors
     public TrainEntity() {
     }
 
-    public TrainEntity(@NonNull String trainCode, String stationFullName, String stationCode, String serverTime, String queryTime, String trainDate, String origin, String destination, String originTime, String destinationTime, String status, String lastLocation, int dueIn, int late, String expectedArrival, String expectedDeparture, String scheduledArrival, String scheduledDeparture, String direction, String trainType, String locationType, Date lastRefresh) {
+    public TrainEntity(@NonNull String trainCode, String stationFullName, String stationCode, String serverTime, String queryTime, String trainDate, String origin, String destination, String originTime, String destinationTime, String status, String lastLocation, int dueIn, int late, String expectedArrival, String expectedDeparture, String scheduledArrival, String scheduledDeparture, String direction, String trainType, String locationType) {
         this.trainCode = trainCode;
         this.stationFullName = stationFullName;
         this.stationCode = stationCode;
@@ -149,7 +131,6 @@ public class TrainEntity {
         this.direction = direction;
         this.trainType = trainType;
         this.locationType = locationType;
-        this.lastRefresh = lastRefresh;
     }
 
     //Getters
@@ -228,10 +209,6 @@ public class TrainEntity {
 
     public String getLocationType() {
         return locationType;
-    }
-
-    public Date getLastRefresh() {
-        return lastRefresh;
     }
 
     public String getQueryTime() {
@@ -317,10 +294,6 @@ public class TrainEntity {
 
     public void setLocationType(String locationType) {
         this.locationType = locationType;
-    }
-
-    public void setLastRefresh(Date lastRefresh) {
-        this.lastRefresh = lastRefresh;
     }
 
     public void setQueryTime(String queryTime) {
