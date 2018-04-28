@@ -2,7 +2,6 @@ package com.smd.studio.thestarsgrouptask;
 
 import android.app.Activity;
 import android.app.Application;
-import android.content.Context;
 
 import com.smd.studio.thestarsgrouptask.di.component.DaggerAppComponent;
 
@@ -16,13 +15,10 @@ public class App extends Application implements HasActivityInjector {
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingAndroidInjector;
 
-    public static Context context;
-
     @Override
     public void onCreate() {
         super.onCreate();
         this.initDagger();
-        context = getApplicationContext();
     }
 
     @Override
