@@ -81,8 +81,4 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
     private void configureDagger() {
         AndroidInjection.inject(this);
     }
-
-    //TODO http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML?StationCode=SKILL
-    //TODO http://api.irishrail.ie/realtime/realtime.asmx/getStationDataByCodeXML?StationCode=ARKLW
-
 }

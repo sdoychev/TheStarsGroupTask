@@ -14,10 +14,10 @@ import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.TrainViewHolder> {
 
-    private List<TrainEntity> trainEntityList;
+    private List<TrainEntity> trainList;
 
     public RecyclerViewAdapter(List<TrainEntity> trainEntityList) {
-        this.trainEntityList = trainEntityList;
+        this.trainList = trainEntityList;
     }
 
     @NonNull
@@ -28,7 +28,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull TrainViewHolder holder, int position) {
-        TrainEntity train = trainEntityList.get(position);
+        TrainEntity train = trainList.get(position);
         holder.itemTextView.setText(train.getDestination());
         holder.nameTextView.setText(train.getDirection());
         holder.dateTextView.setText(train.getOrigin());
@@ -37,12 +37,11 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
     @Override
     public int getItemCount() {
-        return trainEntityList.size();
+        return trainList.size();
     }
 
-    //TODO Delete?
     public void addItems(List<TrainEntity> newTrainList) {
-        trainEntityList = newTrainList;
+        trainList = newTrainList;
         notifyDataSetChanged();
     }
 

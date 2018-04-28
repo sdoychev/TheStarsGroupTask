@@ -3,20 +3,21 @@ package com.smd.studio.thestarsgrouptask.ui.fragments;
 import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.smd.studio.thestarsgrouptask.R;
-import com.smd.studio.thestarsgrouptask.database.entity.TrainEntity;
+import com.smd.studio.thestarsgrouptask.adapters.RecyclerViewAdapter;
 import com.smd.studio.thestarsgrouptask.util.Constants;
 import com.smd.studio.thestarsgrouptask.viewmodels.TrainListViewModel;
 
-import java.util.List;
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -28,16 +29,17 @@ public class ArklowTrainsFragment extends Fragment {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
-    private TrainListViewModel viewModel;
 
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+
+    private RecyclerViewAdapter recyclerViewAdapter;
 
     public ArklowTrainsFragment() {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_trains_list, container, false);
         ButterKnife.bind(this, view);
         return view;
@@ -55,23 +57,17 @@ public class ArklowTrainsFragment extends Fragment {
     }
 
     private void configureViewModel() {
-        String trainList = null;
+        String trainListArgument = null;
         if (getArguments() != null) {
-            trainList = getArguments().getString(Constants.UID_KEY);
+            trainListArgument = getArguments().getString(Constants.UID_KEY);
         }
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(TrainListViewModel.class);
-        viewModel.init(trainList);
-        viewModel.getTrains().observe(this, trains -> updateUI(trains));
-    }
 
-    private void updateUI(@Nullable List<TrainEntity> trains) {
-        if (trains != null) {
-            Log.e("TAG", "UPDATE UI");
-            //TODO
-            //this.username.setText(user.getName());
-            //this.company.setText(user.getCompany());
-            //this.website.setText(user.getBlog());
-        }
-    }
+        recyclerViewAdapter = new RecyclerViewAdapter(new ArrayList<>());
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.setAdapter(recyclerViewAdapter);
 
+        TrainListViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(TrainListViewModel.class);
+        viewModel.init(trainListArgument);
+        viewModel.getTrains().observe(this, trainsList -> recyclerViewAdapter.addItems(trainsList));
+    }
 }

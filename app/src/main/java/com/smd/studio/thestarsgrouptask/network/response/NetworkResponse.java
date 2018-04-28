@@ -11,4 +11,8 @@ import java.util.List;
 public class NetworkResponse {
     @ElementList(inline = true)
     public List<TrainEntity> trains;
+
+    public List<TrainEntity> getTrains() {
+        return trains;
+    }
 }

@@ -3,7 +3,9 @@ package com.smd.studio.thestarsgrouptask.repositories;
 import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.smd.studio.thestarsgrouptask.App;
 import com.smd.studio.thestarsgrouptask.database.dao.TrainDao;
 import com.smd.studio.thestarsgrouptask.database.entity.TrainEntity;
 import com.smd.studio.thestarsgrouptask.network.TrainWebService;
@@ -50,34 +52,13 @@ public class TrainRepository {
                     boolean trainExpired = (trainDao.trainExpired(train.getTrainCode(), getMaxRefreshTime(new Date())) != null);
                     // If train has to be updated
                     if (trainExpired) {
-                        //TODO UPDATE this train from WEB API
+                        // Update only selected train request is currently missing in the Irish Rail API,
+                        // hence we update all the trains
+                        fetchTrainsFromRailApi(webservice, stationName);
                     }
                 }
             } else {
-                webservice.getTrains(stationName).enqueue(new Callback<NetworkResponse>() {
-                    @Override
-                    public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
-                        Log.e("TAG", "DATA REFRESHED FROM NETWORK");
-
-                        /* TODO
-                        Toast.makeText(App.context, "Data refreshed from network !", Toast.LENGTH_LONG).show();
-                        executor.execute(() -> {
-                            List<TrainEntity> trains = response.body();
-                            if (trains != null && trains.size() > 0) {
-                                for (TrainEntity train : trains) {
-                                    train.setLastRefresh(new Date());
-                                    trainDao.insert(train);
-                                }
-                            }
-                        });
-                        */
-                    }
-
-                    @Override
-                    public void onFailure(@NonNull Call<NetworkResponse> call, @NonNull Throwable t) {
-                        Log.e("TAG", "Error when getting data from Network");
-                    }
-                });
+                fetchTrainsFromRailApi(webservice, stationName);
             }
         });
     }
@@ -87,5 +68,32 @@ public class TrainRepository {
         cal.setTime(currentDate);
         cal.add(Calendar.SECOND, Constants.NEW_DATA_TIMEOUT);
         return cal.getTime();
+    }
+
+    private void fetchTrainsFromRailApi(TrainWebService service, String stationName) {
+        service.getTrains(stationName).enqueue(new Callback<NetworkResponse>() {
+            @Override
+            public void onResponse(Call<NetworkResponse> call, Response<NetworkResponse> response) {
+                Log.e("TAG", "DATA REFRESHED FROM NETWORK");
+                Toast.makeText(App.context, "Data refreshed from network !", Toast.LENGTH_LONG).show();
+                executor.execute(() -> {
+                    List<TrainEntity> trains = null;
+                    if (response.body() != null) {
+                        trains = response.body().getTrains();
+                    }
+                    if (trains != null && trains.size() > 0) {
+                        for (TrainEntity train : trains) {
+                            train.setLastRefresh(new Date());
+                            trainDao.insert(train);
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<NetworkResponse> call, @NonNull Throwable t) {
+                Log.e("TAG", "Error when getting data from Network");
+            }
+        });
     }
 }
