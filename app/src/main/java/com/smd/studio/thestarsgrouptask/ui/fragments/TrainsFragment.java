@@ -21,8 +21,6 @@ import java.util.Objects;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import dagger.android.support.AndroidSupportInjection;
 
 public abstract class TrainsFragment extends android.support.v4.app.Fragment {
@@ -30,16 +28,14 @@ public abstract class TrainsFragment extends android.support.v4.app.Fragment {
     @Inject
     ViewModelProvider.Factory viewModelFactory;
 
-    @BindView(R.id.recyclerView)
-    RecyclerView recyclerView;
-
     private String stationName;
+    private RecyclerView recyclerView;
     private TextView stationLabel;
     private RecyclerViewAdapter recyclerViewAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.trains_fragment, container, false);
-        ButterKnife.bind(this, view);
+        recyclerView = view.findViewById(R.id.recyclerView);
         stationLabel = view.findViewById(R.id.stationLabel);
         return view;
     }

@@ -29,9 +29,14 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull TrainViewHolder holder, int position) {
         TrainEntity train = trainList.get(position);
-        holder.itemTextView.setText(train.getDestination());
-        holder.nameTextView.setText(train.getDirection());
-        holder.dateTextView.setText(train.getOrigin());
+        holder.codeTextView.setText(train.getTrainCode());
+        holder.statusTextView.setText(train.getStatus());
+        holder.originTextView.setText(train.getOrigin());
+        holder.destinationTextView.setText(train.getDestination());
+        holder.dueTextView.setText("" + train.getDueIn());
+        holder.lateTextView.setText("" + train.getLate());
+        //TODO Last Update = TimeNow - train.getServerTime()
+        holder.updateTextView.setText(train.getServerTime());
         holder.itemView.setTag(train);
     }
 
@@ -46,15 +51,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     static class TrainViewHolder extends RecyclerView.ViewHolder {
-        private TextView itemTextView;
-        private TextView nameTextView;
-        private TextView dateTextView;
+        private TextView codeTextView;
+        private TextView statusTextView;
+        private TextView originTextView;
+        private TextView destinationTextView;
+        private TextView dueTextView;
+        private TextView lateTextView;
+        private TextView updateTextView;
 
         TrainViewHolder(View view) {
             super(view);
-            itemTextView = (TextView) view.findViewById(R.id.trainNameView);
-            nameTextView = (TextView) view.findViewById(R.id.trainDestView);
-            dateTextView = (TextView) view.findViewById(R.id.trainOrigView);
+            codeTextView = (TextView) view.findViewById(R.id.code);
+            statusTextView = (TextView) view.findViewById(R.id.status);
+            originTextView = (TextView) view.findViewById(R.id.origin);
+            destinationTextView = (TextView) view.findViewById(R.id.destination);
+            dueTextView = (TextView) view.findViewById(R.id.due);
+            lateTextView = (TextView) view.findViewById(R.id.late);
+            updateTextView = (TextView) view.findViewById(R.id.update);
         }
     }
 }
