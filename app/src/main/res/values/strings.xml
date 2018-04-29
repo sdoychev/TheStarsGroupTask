@@ -3,4 +3,12 @@
     <string name="title_arklow">Arklow</string>
     <string name="title_shankill">Shankill</string>
     <string name="trains_list_title">Trains from %s</string>
+
+    //Train List item
+    <string name="train_code">Train #</string>
+    <string name="train_status">Status:</string>
+    <string name="train_route">--></string>
+    <string name="train_due_in">Due In:</string>
+    <string name="train_delay">Delay:</string>
+    <string name="train_last_updated">Last updated:</string>
 </resources>

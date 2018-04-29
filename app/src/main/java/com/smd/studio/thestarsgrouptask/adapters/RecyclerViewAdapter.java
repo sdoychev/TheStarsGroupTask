@@ -33,8 +33,8 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.statusTextView.setText(train.getStatus());
         holder.originTextView.setText(train.getOrigin());
         holder.destinationTextView.setText(train.getDestination());
-        holder.dueTextView.setText("" + train.getDueIn());
-        holder.lateTextView.setText("" + train.getLate());
+        holder.dueTextView.setText(String.valueOf(train.getDueIn()));
+        holder.lateTextView.setText(String.valueOf(train.getLate()));
         //TODO Last Update = TimeNow - train.getServerTime()
         holder.updateTextView.setText(train.getServerTime());
         holder.itemView.setTag(train);
