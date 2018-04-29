@@ -3,6 +3,7 @@
     <string name="title_arklow">Arklow</string>
     <string name="title_shankill">Shankill</string>
     <string name="trains_list_title">Trains from %s</string>
+    <string name="trains_no_data">Unfortunately\nthere is no train data\ncurrently available.\n\nPlease, try again later.</string>
 
     //Train List item
     <string name="train_code">Train #</string>

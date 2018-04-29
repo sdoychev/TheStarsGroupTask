@@ -10,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:textColor="@color/colorAccent"
         android:layout_margin="@dimen/ten_dp"
         android:textSize="26sp" />
 
@@ -19,5 +20,15 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/stationLabel"
         android:layout_marginBottom="@dimen/bottom_navigation_size" />
+
+    <TextView
+        android:id="@+id/emptyView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/trains_no_data"
+        android:textSize="26sp"
+        android:textColor="@color/colorPrimaryDark"
+        android:visibility="gone" />
 
 </RelativeLayout>

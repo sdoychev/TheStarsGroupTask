@@ -31,12 +31,14 @@ public abstract class TrainsFragment extends android.support.v4.app.Fragment {
     private String stationName;
     private RecyclerView recyclerView;
     private TextView stationLabel;
+    private TextView emptyView;
     private RecyclerViewAdapter recyclerViewAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.trains_fragment, container, false);
         recyclerView = view.findViewById(R.id.recyclerView);
         stationLabel = view.findViewById(R.id.stationLabel);
+        emptyView = view.findViewById(R.id.emptyView);
         return view;
     }
 
@@ -58,6 +60,31 @@ public abstract class TrainsFragment extends android.support.v4.app.Fragment {
         recyclerViewAdapter = new RecyclerViewAdapter(new ArrayList<>());
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         recyclerView.setAdapter(recyclerViewAdapter);
+
+        //No Train data available View
+        recyclerViewAdapter.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+            @Override
+            public void onChanged() {
+                super.onChanged();
+                checkEmpty();
+            }
+
+            @Override
+            public void onItemRangeInserted(int positionStart, int itemCount) {
+                super.onItemRangeInserted(positionStart, itemCount);
+                checkEmpty();
+            }
+
+            @Override
+            public void onItemRangeRemoved(int positionStart, int itemCount) {
+                super.onItemRangeRemoved(positionStart, itemCount);
+                checkEmpty();
+            }
+
+            void checkEmpty() {
+                emptyView.setVisibility(recyclerViewAdapter.getItemCount() <= 0 ? View.VISIBLE : View.GONE);
+            }
+        });
 
         //View Model
         TrainListViewModel viewModel = ViewModelProviders.of(this, viewModelFactory).get(TrainListViewModel.class);
