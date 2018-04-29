@@ -11,4 +11,5 @@
     <string name="train_due_in">Due In:</string>
     <string name="train_delay">Delay:</string>
     <string name="train_last_updated">Last updated:</string>
+    <string name="train_minutes_ago">minutes ago.</string>
 </resources>

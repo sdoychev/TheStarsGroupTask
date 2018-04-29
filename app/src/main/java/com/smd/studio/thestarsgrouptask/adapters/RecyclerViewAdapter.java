@@ -1,5 +1,7 @@
 package com.smd.studio.thestarsgrouptask.adapters;
 
+import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,6 +12,9 @@ import android.widget.TextView;
 import com.smd.studio.thestarsgrouptask.R;
 import com.smd.studio.thestarsgrouptask.database.entity.TrainEntity;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.TrainViewHolder> {
@@ -27,6 +32,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     }
 
     @Override
+    @SuppressLint("SimpleDateFormat")
     public void onBindViewHolder(@NonNull TrainViewHolder holder, int position) {
         TrainEntity train = trainList.get(position);
         holder.codeTextView.setText(train.getTrainCode());
@@ -35,8 +41,24 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.destinationTextView.setText(train.getDestination());
         holder.dueTextView.setText(String.valueOf(train.getDueIn()));
         holder.lateTextView.setText(String.valueOf(train.getLate()));
-        //TODO Last Update = TimeNow - train.getServerTime()
-        holder.updateTextView.setText(train.getServerTime());
+        if (train.getLate() >= 5) {
+            holder.lateTextView.setTextColor(Color.parseColor("#CC0000"));
+        } else if (train.getLate() <= 2) {
+            holder.lateTextView.setTextColor(Color.parseColor("#009900"));
+        }
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+        long minutesDifference = 0;
+        try {
+            Date serverDate = format.parse(train.getServerTime());
+            Date currentDate = new Date();
+            minutesDifference = (currentDate.getTime() - serverDate.getTime()) / 60000;
+            if (minutesDifference < 0) {
+                minutesDifference = 0;
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        holder.updateTextView.setText(String.valueOf(minutesDifference));
         holder.itemView.setTag(train);
     }
 
