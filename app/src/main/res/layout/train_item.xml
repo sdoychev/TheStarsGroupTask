@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="@dimen/activity_horizontal_margin"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/codeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/train_code"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/codeLabel"
+            android:layout_toRightOf="@+id/codeLabel"
+            android:textColor="@color/colorPrimary"
+            android:textSize="24sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/origin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:textAllCaps="true"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/routeLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ten_dp"
+            android:layout_marginStart="@dimen/ten_dp"
+            android:layout_toEndOf="@id/origin"
+            android:layout_toRightOf="@id/origin"
+            android:text="@string/train_route"
+            android:textSize="20sp"
+            tools:ignore="RelativeOverlap" />
+
+        <TextView
+            android:id="@+id/destination"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/ten_dp"
+            android:layout_marginStart="@dimen/ten_dp"
+            android:layout_toEndOf="@+id/routeLabel"
+            android:layout_toRightOf="@+id/routeLabel"
+            android:textAllCaps="true"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/dueLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:text="@string/train_due_in"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/due"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/five_dp"
+            android:layout_marginStart="@dimen/five_dp"
+            android:layout_toEndOf="@+id/dueLabel"
+            android:layout_toRightOf="@+id/dueLabel"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/late"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="@dimen/five_dp"
+            android:layout_marginStart="@dimen/five_dp"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/lateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/late"
+            android:layout_toStartOf="@+id/late"
+            android:text="@string/train_delay"
+            android:textSize="22sp"
+            tools:ignore="RelativeOverlap" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/statusLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/train_status"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/five_dp"
+            android:layout_marginStart="@dimen/five_dp"
+            android:layout_toEndOf="@+id/statusLabel"
+            android:layout_toRightOf="@+id/statusLabel"
+            android:textSize="20sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:id="@+id/updateLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/train_last_updated"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/update"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/five_dp"
+            android:layout_marginStart="@dimen/five_dp"
+            android:layout_toEndOf="@+id/updateLabel"
+            android:layout_toRightOf="@+id/updateLabel"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/minutesLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/five_dp"
+            android:layout_marginStart="@dimen/five_dp"
+            android:layout_toEndOf="@+id/update"
+            android:layout_toRightOf="@+id/update"
+            android:text="@string/train_minutes_ago"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+</LinearLayout>

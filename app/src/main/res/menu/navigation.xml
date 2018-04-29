@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_arklow"
+        android:icon="@drawable/ic_train"
+        android:title="@string/title_arklow" />
+
+    <item
+        android:id="@+id/navigation_shankill"
+        android:icon="@drawable/ic_train"
+        android:title="@string/title_shankill" />
+
+</menu>
