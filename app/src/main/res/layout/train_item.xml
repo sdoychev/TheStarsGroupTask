@@ -16,6 +16,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/train_code"
+            android:textColor="@color/colorPrimary"
             android:textSize="24sp" />
 
         <TextView
@@ -24,13 +25,15 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/codeLabel"
             android:layout_toRightOf="@+id/codeLabel"
+            android:textColor="@color/colorPrimary"
             android:textSize="24sp" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:gravity="center">
 
         <TextView
             android:id="@+id/origin"
@@ -39,7 +42,7 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentStart="true"
             android:textAllCaps="true"
-            android:textSize="18sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/routeLabel"
@@ -62,27 +65,7 @@
             android:layout_toEndOf="@+id/routeLabel"
             android:layout_toRightOf="@+id/routeLabel"
             android:textAllCaps="true"
-            android:textSize="18sp" />
-
-        <TextView
-            android:id="@+id/status"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginLeft="@dimen/five_dp"
-            android:layout_marginStart="@dimen/five_dp"
             android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/statusLabel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toLeftOf="@+id/status"
-            android:layout_toStartOf="@+id/status"
-            android:text="@string/train_status"
-            android:textSize="18sp"
-            tools:ignore="RelativeOverlap" />
     </RelativeLayout>
 
     <RelativeLayout
@@ -93,18 +76,20 @@
             android:id="@+id/dueLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:text="@string/train_due_in"
-            android:textSize="24sp" />
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/due"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/ten_dp"
-            android:layout_marginStart="@dimen/ten_dp"
+            android:layout_marginLeft="@dimen/five_dp"
+            android:layout_marginStart="@dimen/five_dp"
             android:layout_toEndOf="@+id/dueLabel"
             android:layout_toRightOf="@+id/dueLabel"
-            android:textSize="24sp" />
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/late"
@@ -112,9 +97,9 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
-            android:layout_marginLeft="@dimen/ten_dp"
-            android:layout_marginStart="@dimen/ten_dp"
-            android:textSize="24sp" />
+            android:layout_marginLeft="@dimen/five_dp"
+            android:layout_marginStart="@dimen/five_dp"
+            android:textSize="22sp" />
 
         <TextView
             android:id="@+id/lateLabel"
@@ -123,8 +108,32 @@
             android:layout_toLeftOf="@+id/late"
             android:layout_toStartOf="@+id/late"
             android:text="@string/train_delay"
-            android:textSize="24sp"
+            android:textSize="22sp"
             tools:ignore="RelativeOverlap" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/statusLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/train_status"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/five_dp"
+            android:layout_marginStart="@dimen/five_dp"
+            android:layout_toEndOf="@+id/statusLabel"
+            android:layout_toRightOf="@+id/statusLabel"
+            android:textSize="20sp" />
+
     </RelativeLayout>
 
     <RelativeLayout

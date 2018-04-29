@@ -55,6 +55,7 @@ public class AppModule {
         return new GsonBuilder().create();
     }
 
+    @SuppressWarnings("deprecation")
     @Provides
     Retrofit provideRetrofit(Gson gson) {
         return new Retrofit.Builder()

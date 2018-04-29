@@ -1,12 +1,10 @@
 package com.smd.studio.thestarsgrouptask.ui.activities;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
-import android.view.MenuItem;
 
 import com.smd.studio.thestarsgrouptask.R;
 import com.smd.studio.thestarsgrouptask.ui.fragments.ArklowTrainsFragment;
@@ -54,22 +52,19 @@ public class MainActivity extends AppCompatActivity implements HasSupportFragmen
         transaction.commit();
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment selectedFragment = null;
-            switch (item.getItemId()) {
-                case R.id.navigation_arklow:
-                    selectedFragment = ArklowTrainsFragment.newInstance(Constants.ARKLOW_STATION_NAME);
-                    break;
-                case R.id.navigation_shankill:
-                    selectedFragment = ShankillTrainsFragment.newInstance(Constants.SHANKILL_STATION_NAME);
-                    break;
-            }
-            FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-            transaction.replace(R.id.frameLayout, selectedFragment);
-            transaction.commit();
-            return true;
+    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = item -> {
+        Fragment selectedFragment = null;
+        switch (item.getItemId()) {
+            case R.id.navigation_arklow:
+                selectedFragment = ArklowTrainsFragment.newInstance(Constants.ARKLOW_STATION_NAME);
+                break;
+            case R.id.navigation_shankill:
+                selectedFragment = ShankillTrainsFragment.newInstance(Constants.SHANKILL_STATION_NAME);
+                break;
         }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frameLayout, selectedFragment);
+        transaction.commit();
+        return true;
     };
 }

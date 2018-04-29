@@ -16,6 +16,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.TimeZone;
 
 public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.TrainViewHolder> {
 
@@ -41,16 +42,20 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         holder.destinationTextView.setText(train.getDestination());
         holder.dueTextView.setText(String.valueOf(train.getDueIn()));
         holder.lateTextView.setText(String.valueOf(train.getLate()));
-        if (train.getLate() >= 5) {
+        if (Math.abs(train.getLate()) >= 5) {
             holder.lateTextView.setTextColor(Color.parseColor("#CC0000"));
-        } else if (train.getLate() <= 2) {
+        } else if (Math.abs(train.getLate()) <= 2) {
             holder.lateTextView.setTextColor(Color.parseColor("#009900"));
         }
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+        format.setTimeZone(TimeZone.getTimeZone("UTC"));
+        SimpleDateFormat localeFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS");
+        localeFormat.setTimeZone(TimeZone.getDefault());
         long minutesDifference = 0;
         try {
             Date serverDate = format.parse(train.getServerTime());
             Date currentDate = new Date();
+            //Date formattedCurrentDate = localeFormat.format(new Date());
             minutesDifference = (currentDate.getTime() - serverDate.getTime()) / 60000;
             if (minutesDifference < 0) {
                 minutesDifference = 0;
