@@ -99,10 +99,7 @@ public class TrainEntity {
     @Element(name = "Locationtype")
     private String locationType;
 
-    //Constructors
-    public TrainEntity() {
-    }
-
+    //Constructor
     public TrainEntity(@NonNull String trainCode, String stationFullName, String stationCode, String serverTime, String queryTime, String trainDate, String origin, String destination, String originTime, String destinationTime, String status, String lastLocation, int dueIn, int late, String expectedArrival, String expectedDeparture, String scheduledArrival, String scheduledDeparture, String direction, String trainType, String locationType) {
         this.trainCode = trainCode;
         this.stationFullName = stationFullName;

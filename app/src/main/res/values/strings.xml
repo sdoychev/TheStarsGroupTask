@@ -2,4 +2,5 @@
     <string name="app_name">TheStarsGroupTask</string>
     <string name="title_arklow">Arklow</string>
     <string name="title_shankill">Shankill</string>
+    <string name="trains_list_title">Trains from %s</string>
 </resources>

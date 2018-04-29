@@ -56,7 +56,7 @@ public abstract class TrainsFragment extends android.support.v4.app.Fragment {
 
     private void setupTrainFragment() {
         //Station Label View
-        stationLabel.setText(stationName);
+        stationLabel.setText(String.format(getString(R.string.trains_list_title), stationName));
 
         //Recycler View
         recyclerViewAdapter = new RecyclerViewAdapter(new ArrayList<>());
